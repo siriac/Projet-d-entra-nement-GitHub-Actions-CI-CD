@@ -37,4 +37,27 @@ class TaskControllerTest {
         mockMvc.perform(get("/api/tasks/999"))
                 .andExpect(status().isNotFound());
     }
+    @Test
+    void shouldUpdateTask() throws Exception {
+
+    String createPayload =
+            "{\"title\":\"Ancienne valeur\",\"done\":false}";
+
+    mockMvc.perform(post("/api/tasks")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(createPayload))
+            .andExpect(status().isCreated());
+
+    String updatePayload =
+            "{\"title\":\"Nouvelle valeur\",\"done\":true}";
+
+    mockMvc.perform(put("/api/tasks/1")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(updatePayload))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.title")
+                    .value("Nouvelle valeur"))
+            .andExpect(jsonPath("$.done")
+                    .value(true));
+}
 }
