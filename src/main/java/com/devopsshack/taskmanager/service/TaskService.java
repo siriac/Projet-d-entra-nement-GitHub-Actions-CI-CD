@@ -32,4 +32,16 @@ public class TaskService {
     public boolean delete(Long id) {
         return tasks.remove(id) != null;
     }
+    public Task update(Long id, Task updatedTask) {
+    Task existingTask = tasks.get(id);
+
+    if (existingTask == null) {
+        return null;
+    }
+
+    existingTask.setTitle(updatedTask.getTitle());
+    existingTask.setDone(updatedTask.isDone());
+
+    return existingTask;
+}
 }
