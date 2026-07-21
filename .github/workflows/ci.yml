@@ -48,3 +48,15 @@ jobs:
 
       - name: Display downloaded files
         run: ls -R
+
+  information:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display pipeline information
+        run: |
+          echo "Repository : ${{ github.repository }}"
+          echo "Branch     : ${{github.ref_name}}"
+          echo "Commit     : ${{github.sha}}"
+          echo "Actor       : ${{github.actor}}"
