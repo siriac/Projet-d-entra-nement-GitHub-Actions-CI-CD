@@ -60,3 +60,16 @@ jobs:
           echo "Branch     : ${{github.ref_name}}"
           echo "Commit     : ${{github.sha}}"
           echo "Actor       : ${{github.actor}}"
+  package:
+    needs: verify-artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Downlaod application
+        uses: actions/download-artifact
+        with:
+          name: task-manager-jar
+
+      - name: Display package content
+        run: | 
+          echo "Package application..."
+          ls -lh
